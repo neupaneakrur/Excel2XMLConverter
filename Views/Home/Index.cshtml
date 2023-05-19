@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Excel to XML Converter</h1>
+    <p class="lead">Convert Excel worksheet to XML format</p>
+</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <form id="uploadForm" method="post" enctype="multipart/form-data" action="/Home/Upload">
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="inputFile" name="inputFile" accept=".xls, .xlsx">
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Convert to XML</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@*@section Scripts {
+    <script>
+        // Drag and drop file upload
+        var form = document.getElementById('uploadForm');
+        var inputFile = document.getElementById('inputFile');
+
+        form.addEventListener('dragover', function (e) {
+            e.preventDefault();
+            form.classList.add('dragover');
+        });
+
+        form.addEventListener('dragleave', function (e) {
+            e.preventDefault();
+            form.classList.remove('dragover');
+        });
+
+        form.addEventListener('drop', function (e) {
+            e.preventDefault();
+            form.classList.remove('dragover');
+            inputFile.files = e.dataTransfer.files;
+        });
+
+        // Update label text
+        inputFile.addEventListener('change', function (e) {
+            var fileName = e.target.files[0].name;
+            var label = document.querySelector('.custom-file-label');
+            label.innerText = fileName;
+        });
+    </script>
+}*@
