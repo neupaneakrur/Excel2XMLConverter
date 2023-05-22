@@ -44,12 +44,12 @@ public class HomeController : Controller
                 Console.WriteLine($"Currency value: {currencyValue}");
                 var information = new InformationModel
                 {
-                    Date = DateTime.Parse(sheet.GetRow(row).GetCell(0)?.ToString() ?? string.Empty),
-                    Type = sheet.GetRow(row).GetCell(1)?.ToString(),
-                    Amount = decimal.Parse(sheet.GetRow(row).GetCell(2)?.ToString() ?? "0"),
-                    Currency = sheet.GetRow(row).GetCell(3)?.ToString() ?? string.Empty,
-                    EventType = sheet.GetRow(row).GetCell(4)?.ToString() ?? string.Empty,
-                    CreatedAt = DateTime.Parse(sheet.GetRow(row).GetCell(5)?.ToString() ?? string.Empty)
+                    Date = DateTime.Parse(sheet.GetRow(row).GetCell(23)?.ToString() ?? string.Empty),
+                    Type = sheet.GetRow(row).GetCell(8)?.ToString(),
+                    Amount = decimal.Parse(sheet.GetRow(row).GetCell(9)?.ToString() ?? "0"),
+                    Currency = sheet.GetRow(row).GetCell(10)?.ToString() ?? string.Empty,
+                    EventType = sheet.GetRow(row).GetCell(13)?.ToString() ?? string.Empty,
+                    CreatedAt = DateTime.Parse(sheet.GetRow(row).GetCell(23)?.ToString() ?? string.Empty)
                 };
 
                 informations.Add(information);

@@ -14,39 +14,115 @@
                 <div class="custom-file">
                     <input type="file" class="custom-file-input" id="inputFile" name="inputFile" accept=".xls, .xlsx">
                 </div>
-                <button type="submit" class="btn btn-primary mt-3">Convert to XML</button>
+                <button type="submit" class="btn btn-primary mt-3" >Convert to XML</button>
             </form>
         </div>
     </div>
 </div>
-
+<style>
+    #uploadForm{
+        font-family:'Times New Roman', Times, serif;
+    }
+</style>
 @*@section Scripts {
     <script>
-        // Drag and drop file upload
-        var form = document.getElementById('uploadForm');
-        var inputFile = document.getElementById('inputFile');
+        // Get the drop zone element
+        const dropZone = document.getElementById('drop-zone');
+        // Add event listeners for drag events
+        dropZone.addEventListener('dragenter', handleDragEnter, false);
+        dropZone.addEventListener('dragover', handleDragOver, false);
+        dropZone.addEventListener('dragleave', handleDragLeave, false);
+        dropZone.addEventListener('drop', handleDrop, false);
+        // Handle drag enter event
+        function handleDragEnter(event) {
+            event.stopPropagation();
+            event.preventDefault();
+            dropZone.classList.add('drag-over');
+        }
+        // Handle drag over event
+        function handleDragOver(event) {
+            event.stopPropagation();
+            event.preventDefault();
+            event.dataTransfer.dropEffect = 'copy';
+        }
+        // Handle drag leave event
+        function handleDragLeave(event) {
+            event.stopPropagation();
+            event.preventDefault();
+            dropZone.classList.remove('drag-over');
+        }
+        // Handle drop event
+        function handleDrop(event) {
+            event.stopPropagation();
+            event.preventDefault();
+            dropZone.classList.remove('drag-over');
+            // Get the dropped file
+            const file = event.dataTransfer.files[0];
+            // Create a FormData object and append the file to it
+            const formData = new FormData();
+            formData.append('inputFile', file);
+            // Make an AJAX request to the server to upload the file
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/upload');
+            xhr.send(formData);
+        }
+    </script>
 
-        form.addEventListener('dragover', function (e) {
-            e.preventDefault();
-            form.classList.add('dragover');
-        });
+}*@
 
-        form.addEventListener('dragleave', function (e) {
-            e.preventDefault();
-            form.classList.remove('dragover');
-        });
+@*<h2>Drag & Drop file upload </h2>
+<div id="dropArea">
+    Drop your files here
+</div>
+<h4>Uploaded files : </h4>
+<ul class="list-group" id="uploadList">
+</ul>
 
-        form.addEventListener('drop', function (e) {
-            e.preventDefault();
-            form.classList.remove('dragover');
-            inputFile.files = e.dataTransfer.files;
-        });
+<style>
+    #dropArea {
+        background: #b5b5b5;
+        border: black dashed 1px;
+        height: 50px;
+        text-align: center;
+        color: #fff;
+        padding-top: 12px;
+    }
 
-        // Update label text
-        inputFile.addEventListener('change', function (e) {
-            var fileName = e.target.files[0].name;
-            var label = document.querySelector('.custom-file-label');
-            label.innerText = fileName;
-        });
+    .active-drop {
+        background: #77bafa !important;
+        border: solid 2px blue !important;
+        opacity: .5;
+        color: black !important;
+    }
+</style>
+
+@section Scripts{
+    <script src="~/Scripts/jquery.filedrop.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#dropArea').filedrop({
+                url: '@Url.Action("UploadFiles")',
+                allowedfiletypes: ['image/jpeg', 'image/png', 'image/gif'],
+                allowedfileextensions: ['.jpg', '.jpeg', '.png', '.gif'],
+                paramname: 'files',
+                maxfiles: 5,
+                maxfilesize: 5, // in MB
+                dragOver: function () {
+                    $('#dropArea').addClass('active-drop');
+                },
+                dragLeave: function () {
+                    $('#dropArea').removeClass('active-drop');
+                },
+                drop: function () {
+                    $('#dropArea').removeClass('active-drop');
+                },
+                afterAll: function (e) {
+                    $('#dropArea').html('file(s) uploaded successfully');
+                },
+                uploadFinished: function (i, file, response, time) {
+                    $('#uploadList').append('<li class="list-group-item">' + file.name + '</li>')
+                }
+            })
+        })
     </script>
 }*@
