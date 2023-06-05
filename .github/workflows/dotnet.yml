@@ -68,6 +68,6 @@ jobs:
             -----END RSA PRIVATE KEY-----
           script: |
             sudo systemctl stop Converter.service &&
-            cp -rf /home/ubuntu/app/github/publish* /var/www/converter &&
+            sudo cp -rf /home/ubuntu/app/github/publish* /var/www/converter &&
             sudo systemctl start Converter.service 
 
