@@ -32,7 +32,4 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           source: './publish'
           target: '/home/ubuntu/app/github'
-      - name: Copy to application folder and restart application
-        run: |
-          ssh -i ${{ secrets.EC2_SSH_KEY }} ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "systemctl stop Converter.service && cp -rf /home/ubuntu/app/github/publish* /var/www/converter && sudo systemctl start Converter.service"
 
