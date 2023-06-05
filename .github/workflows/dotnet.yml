@@ -38,34 +38,9 @@ jobs:
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
-          key: |
-            -----BEGIN RSA PRIVATE KEY-----
-            MIIEowIBAAKCAQEAstedWnK2YpXDP0vimcvud8FeHRgW5bVdISiKd3p27SI8tjgo
-            NHOguYLXfBfo5sRJdFfOi+5NwP1YQwT2TiPJn7CwQZfjJv+5jXqfvJQTqgqjck7P
-            NTFDk36egfC/e0z40fkcGHS6UbFTrJigcfdnxitxmU/vLlqiMbnHQ60IFHS/212U
-            q+kf75CCQ2mfp9i8+PMFBj3GXqBlGOQCo9NaSVXU/meB1/uEsYinTFyBcuMa1ISs
-            kXFvg9zdDsSBGXXvUkiXvd5Y9G5rTVaxhgLwa3tD9C+zPn6lmRId+uneBM1vS6YC
-            6FwNQ7nPpocI/9/fW6qD/l64B2CqY7iOlcmfoQIDAQABAoIBAAthIMgCiIxZTyUV
-            5QM4MKI6EYz0XXCcS6Kye60Cg9Ku3QITLKu5t75WDvP8aXtVff8DH0dUEGp5NEZ/
-            aFSsfkXE7lIeIfv3RY01AjjzixTEvIWnchPGYLBf3CIUeXqU+TgTC7CarMhJ6jMP
-            OxZFUbsQRJgmt+dRKQTU91LdDaiPcZwa40l4z8ZmBjKZWJ5Br29ejXYGrfKXZZRY
-            MHBU6qqyAQhy7bLA/iCh0xP0823WaFctmWqV9WIyXMREyEiT3a5DZkU2QJhShx79
-            GSwIxaUL+JTRXAU9f3eNS7lpo4AmfQmziBCxd4Ne6ZooF7aAxM2krk4ACHJ2+ddI
-            xwNPG+ECgYEA+oRlMljiO5eb4N+8ebFiJwhfri4OfgQ2GI8fCDjvmQmxA4Piv7wV
-            Y1MtkeWGHxm55e/C55f7lecYsZeGwYaMtVJfFNSkeLiIAztoWccdzyUFaY8U+z5+
-            QPnANtXDi8iwOX5CCIFiCZKukTQa8K/dUX99zyIZwzSraTPXI+Ho090CgYEAtsGj
-            Fou+/PLLtR50mA0owtApc0tYaogB7InoC7KiQDqRjucuzU02/Us0bNX0AyTdr1Ub
-            Hjm2rkLIaHMYJKmd0pwGNaTN9mwVlsG9thhoCPm+zu2EwDCHp7gyo1N6P3ZQNuVM
-            S6uEf+UzNgg8GGYUxLfc5spx/WMigvtqLW3ikJUCgYEA0NYXqk3wYm8zcdXxv5zA
-            zvsrD/+y8xg9pGGDJA6apgAvQVfraZy4U7GeVnZ5RWnjz6v81aWcBE2/ByTjIGcy
-            22EMhEfzx/NE5zTZ+6WC0xDwnxu5CO0CwNWyh8PRnLCzP2piT8bT3FkcD03Ze3WP
-            0QWv8kFiKpm4nx2pJm+H8T0CgYAi9qS22YFubxzdx7fSpyHXM2/aqN1/dAm6MR/9
-            rO0xkILsbfocONt+Vfbvo3cNau4mbwfDHpN+fzRMF0jVKsYQ1tyxQphMvpzavLII
-            tl6g6PbCK9qr0h0Bz1GQwZWvsnjiJ7gS+ftdZIIJokWs/UqX3/0ZAj4QlfiySlsj
-            2dPwiQKBgBd4hjH6tkFyRmzGRJjQYw/Tq2Ls5ir8/9bLX93SVza9ldiBnygKKaGN
-            1ITzCL9IW0/doQ1Fac/HfkQnYtQ97ryUoyqofHRek/d9WW0vZzzBnCM1IEoM/Fc+
-            XCuYaM8rVI+FBlFjpMLdbcr4vpVuzrmrUjusYz6uu+UlLbza2Qkx
-            -----END RSA PRIVATE KEY-----
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+
           script: |
             sudo systemctl stop Converter.service &&
             sudo cp -rf /home/ubuntu/app/github/publish/* /var/www/converter &&
