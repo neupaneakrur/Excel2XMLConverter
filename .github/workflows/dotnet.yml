@@ -46,16 +46,21 @@ jobs:
             sudo cp -rf /home/ubuntu/app/github/publish/* /var/www/converter &&
             sudo systemctl start Converter.service 
             
-      - name: Set up AWS CLI
+      - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-west-2
-          
-      - name: Create new AMI
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Install AWS CLI
         run: |
-          INSTANCE_ID=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
-          NEW_AMI_ID=$(aws ec2 create-image --instance-id $INSTANCE_ID --name "Updated AMI" --output text)
-          echo "::set-output name=ami-id::$NEW_AMI_ID"
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          sudo ./aws/install
+
+      - name: Create AMI
+        run: |
+          instance_id=${{ secrets.INSTANCE_ID }}
+          aws ec2 create-image --instance-id $instance_id --name "MyAMI" --description "AMI created from instance $instance_id"
 
