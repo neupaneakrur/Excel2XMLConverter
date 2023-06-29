@@ -62,5 +62,12 @@ jobs:
       - name: Create AMI
         run: |
           instance_id=${{ secrets.INSTANCE_ID }}
-          aws ec2 create-image --instance-id $instance_id --name "MyAMI" --description "AMI created from instance $instance_id"
+          aws ec2 create-image --instance-id $instance_id --name "MyAMIFROMGithubActions" --description "AMI created from instance $instance_id"
+          echo "::set-output name=ami_id::$ami_id"
+      
+      - name: Update Launch Template
+        run: |
+          launch_template_id=${{ secrets.LAUNCH_TEMPLATE_ID }}
+          ami_id=${{ steps.create-ami.outputs.ami_id }}
+          aws ec2 create-launch-template-version --launch-template-id $launch_template_id --source-version 1 --launch-template-data "{\"ImageId\":\"$ami_id\"}"
 
